@@ -1,0 +1,20 @@
+<tbody>
+{% for product in products %}
+    <tr>
+        <td>{{ product.id }}</td>
+        <td>{{ product.code }}</td>
+        <td>{{ product.naam }}</td>
+        <td>{% if product.category.description is defined %}{{ product.category.description }}{% endif %}</td>
+        <td>{{ product.prijs }}</td>
+        <td>
+            <a href="{{ path('product_show', {'id': product.id}) }}">show</a>
+            <a href="{{ path('product_edit', {'id': product.id}) }}">edit</a>
+        </td>
+    </tr>
+{% else %}
+    <tr>
+        <td colspan="5">no records found</td>
+    </tr>
+{% endfor %}
+</tbody>
+'GET', 'POST'

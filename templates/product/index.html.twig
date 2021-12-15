@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Product index{% endblock %}
+
+{% block body %}
+    <h1>Product index</h1>
+
+    <table class="table" id="lijst">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Code</th>
+                <th>Naam</th>
+                <th>Category</th>
+                <th>Prijs</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        {% include('product/_inc_tbody_product.html.twig') %}
+     </table>
+
+    <a href="{{ path('product_new') }}">Create new</a>
+{% endblock %}

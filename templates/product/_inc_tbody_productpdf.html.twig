@@ -6,10 +6,6 @@
         <td>{{ product.naam }}</td>
         <td>{% if product.category.description is defined %}{{ product.category.description }}{% endif %}</td>
         <td>{{ product.prijs }}</td>
-        <td>
-            <a href="{{ path('product_show', {'id': product.id}) }}">show</a>
-            <a href="{{ path('product_edit', {'id': product.id}) }}">edit</a>
-        </td>
     </tr>
 {% else %}
     <tr>

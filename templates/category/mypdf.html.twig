@@ -3,10 +3,29 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Title of the PDF</title>
+    <title>Categorie PDF</title>
 </head>
 <body>
 <h4>{{ title }}</h4>
-<p>Lorem Ipsum</p>
+<h1>Category</h1>
+
+<table class="table">
+    <tbody>
+    <tr>
+        <th>Id</th>
+        <td>{{ category.id }}</td>
+    </tr>
+    <tr>
+        <th>Description</th>
+        <td><b>{{ category.description }}</b></td>
+    </tr>
+    </tbody>
+</table>
+
+{% set products = category.products %}
+<table class="table">
+    {% include('product/_inc_tbody_productpdf.html.twig') %}
+</table>
+
 </body>
 </html>
