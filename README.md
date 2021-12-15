@@ -1,6 +1,8 @@
 # les2021MBO
 
-clone dit project met: git clone https://github.com/hrobben/les2021MBO.git
+clone dit project met: git clone https://github.com/hrobben/les2021MBO.git ./<dir-name>
+
+cd <dir-name>
 
 in de directory:  
 - composer install
