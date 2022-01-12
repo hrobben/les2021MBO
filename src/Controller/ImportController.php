@@ -53,13 +53,23 @@ class ImportController extends AbstractController
         $data = json_decode($json,TRUE);
 
         // we gaan hier de data lezen en in de dbase plaatsen.
-
+        $entityManager = $this->getDoctrine()->getManager();
         foreach($data as $aanmelding) {
             foreach($aanmelding as $speler) {
                 $zoekSpeler = $spelerRepository->findBy(['achternaam'=>$speler['spelerachternaam']]);
                 if ($zoekSpeler) {
-                    // speler al in dbase
-                    // nog op voornaam kijken.
+                    foreach ($zoekSpeler as $item) {
+/*                        if ($item->setVoornaam() <> $speler['spelervoornaam']) {
+                            $nieuweSpeler = new Speler();
+                            $nieuweSpeler->setAchternaam($speler['spelerachternaam']);
+                            $nieuweSpeler->setVoornaam($speler['spelervoornaam']);
+                            $nieuweSpeler->setSchool($speler['schoolnaam']);
+                            if ($speler['spelertussenvoegsels']) {
+                                $nieuweSpeler->setTussenvoegsel($speler['spelertussenvoegsels']);
+                            }
+                            $entityManager->persist( $nieuweSpeler);
+                        }*/
+                    }
                 } else {
                     $nieuweSpeler = new Speler();
                     $nieuweSpeler->setAchternaam($speler['spelerachternaam']);
@@ -68,18 +78,34 @@ class ImportController extends AbstractController
                     if ($speler['spelertussenvoegsels']) {
                         $nieuweSpeler->setTussenvoegsel($speler['spelertussenvoegsels']);
                     }
-                    $entityManager = $this->getDoctrine()->getManager();
                     $entityManager->persist( $nieuweSpeler);
                 }
             }
-            $entityManager->flush();
         }
+        $entityManager->flush();
 
         return $this->render('import/index.html.twig', [
             'filename' => $filename,
             'jsonstring' => $data,
             'upload_dir' => $uploadDir,
         ]);
+    }
 
+    #[Route('/game', name: 'game')]
+    public function game(SpelerRepository $spelerRepository)
+    {
+        $spelers = $spelerRepository->findAll();
+        $spelerArray = [];
+        foreach ($spelers as $speler) {
+            array_push($spelerArray, $speler->getId());
+        }
+        shuffle($spelerArray);
+        dump($spelerArray);
+
+        return $this->render('import/game.html.twig',[
+            'controller' => 'import',
+            'spelersArray' => $spelerArray,
+            'spelers' => $spelers,
+        ]);
     }
 }

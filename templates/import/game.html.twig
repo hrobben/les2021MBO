@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello Game!{% endblock %}
+
+{% block body %}
+    <h1>Spelers Game</h1>
+    {% for spa in spelersArray %}
+        {% for speler in spelers %}
+            {% if (spa == speler.id) %}
+                <p>{{ speler.id }} {{ speler.voornaam }} {{ speler.achternaam }}</p>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+{% endblock %}
