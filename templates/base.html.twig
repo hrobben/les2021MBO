@@ -52,6 +52,8 @@
                 <a class="me-3 py-2 text-dark text-decoration-none" href="{{ path('blog_index') }}">Blog</a>
                 <a class="me-3 py-2 text-dark text-decoration-none" href="#">Support</a>
                 <a class="me-3 py-2 text-dark text-decoration-none" href="{{ path('product_kok')}}">Kok</a>
+                <a class="me-3 py-2 text-dark text-decoration-none" href="{{ path('speler_index')}}">Speler</a>
+                <a class="me-3 py-2 text-dark text-decoration-none" href="{{ path('import')}}">Import</a>
                 {% if is_granted("ROLE_ADMIN") %}
                     <a class="me-3 py-2 text-dark text-decoration-none" href="{{ path('admin') }}">Admin</a>
                 {% endif %}
