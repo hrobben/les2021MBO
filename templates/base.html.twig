@@ -51,8 +51,12 @@
                 <a class="me-3 py-2 text-dark text-decoration-none" href="{{ path('category_index') }}">Category</a>
                 <a class="me-3 py-2 text-dark text-decoration-none" href="{{ path('blog_index') }}">Blog</a>
                 <a class="me-3 py-2 text-dark text-decoration-none" href="#">Support</a>
-                <a class="me-3 py-2 text-dark text-decoration-none" href="{{ path('product_kok')}}">Kok</a>
-                <a class="me-3 py-2 text-dark text-decoration-none" href="{{ path('speler_index')}}">Speler</a>
+                {% if is_granted("ROLE_KOK") %}
+                    <a class="me-3 py-2 text-dark text-decoration-none" href="{{ path('product_kok')}}">Kok</a>
+                {% endif %}
+                {% if is_granted("ROLE_OBER") %}
+                    <a class="me-3 py-2 text-dark text-decoration-none" href="{{ path('speler_index')}}">Speler</a>
+                {% endif %}
                 <a class="me-3 py-2 text-dark text-decoration-none" href="{{ path('import')}}">Import</a>
                 <a class="me-3 py-2 text-dark text-decoration-none" href="{{ path('game')}}">Game maken</a>
                 {% if is_granted("ROLE_ADMIN") %}
