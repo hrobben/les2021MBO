@@ -1,16 +1,30 @@
 <tbody>
+{% set teller = 0 %}
+{% set totaal = 0 %}
 {% for product in products %}
     <tr>
         <td>{{ product.id }}</td>
         <td>{{ product.code }}</td>
         <td>{{ product.naam }}</td>
         <td>{% if product.category.description is defined %}{{ product.category.description }}{% endif %}</td>
-        <td>{{ product.prijs }}</td>
+        <td>{{ product.prijs |format_currency('EUR') }}</td>
+        {% set teller = teller + 1 %}
+        {% set totaal = totaal + product.prijs %}
     </tr>
 {% else %}
     <tr>
         <td colspan="5">no records found</td>
     </tr>
 {% endfor %}
+<tr>
+    <td></td><td></td>
+    <td></td><td>Totaal:</td>
+    <td>{{ totaal|format_currency('EUR') }}</td>
+</tr>
+{%  set gemiddelde = totaal/teller %}
+<tr>
+    <td></td><td></td>
+    <td></td><td>Gemiddelde</td>
+    <td>{{ gemiddelde|format_currency('EUR') }}</td>
+</tr>
 </tbody>
-'GET', 'POST'
