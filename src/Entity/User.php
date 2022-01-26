@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -41,6 +43,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="boolean")
      */
     private $isVerified = false;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Order::class, mappedBy="user")
+     */
+    private $product;
+
+    public function __construct()
+    {
+        $this->product = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -141,5 +153,40 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->isVerified = $isVerified;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Order[]
+     */
+    public function getProduct(): Collection
+    {
+        return $this->product;
+    }
+
+    public function addProduct(Order $product): self
+    {
+        if (!$this->product->contains($product)) {
+            $this->product[] = $product;
+            $product->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Order $product): self
+    {
+        if ($this->product->removeElement($product)) {
+            // set the owning side to null (unless already changed)
+            if ($product->getUser() === $this) {
+                $product->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return (string) $this->getEmail();
     }
 }

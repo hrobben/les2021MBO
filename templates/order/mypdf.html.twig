@@ -1,0 +1,58 @@
+{# ./templates/category/mypdf.html.twig #}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Factuur voor</title>
+</head>
+<body>
+<h4>Bon</h4>
+<h1>Category</h1>
+
+<table class="table">
+    <tbody>
+    <tr>
+        <th>Id</th>
+        <th>Klant</th>
+    </tr>
+    <tr>
+        <td>{{ bestels[0].id }}</td>
+        <td><b>{{ bestels[0].user.email }}</b></td>
+    </tr>
+    </tbody>
+</table>
+
+<table class="table">
+    {% set teller = 0 %}
+    {% set totaal = 0 %}
+    <tr>
+        <th>product ID</th>
+        <th>product aantal</th>
+        <th>product naam</th>
+        <th>product prijs</th>
+        <th>regel totaal</th>
+    </tr>
+    {% for product in bestels %}
+        <tr>
+            <td>{{ product.id }}</td>
+            <td>{{ product.amount }} x </td>
+            <td>{{ product.product.naam }}</td>
+            <td>{{ product.product.prijs |format_currency('EUR') }}</td>
+            <td>{{ (product.product.prijs * product.amount) | format_currency('EUR') }}</td>
+            {% set totaal = totaal + (product.product.prijs * product.amount) %}
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="5">no records found</td>
+        </tr>
+    {% endfor %}
+    <tr>
+        <td></td><td></td>
+        <td></td><td>Totaal:</td>
+        <td>{{ totaal|format_currency('EUR') }}</td>
+    </tr>
+
+</table>
+
+</body>
+</html>

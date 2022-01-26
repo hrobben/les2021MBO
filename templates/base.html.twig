@@ -61,6 +61,7 @@
                 <a class="me-3 py-2 text-dark text-decoration-none" href="{{ path('game')}}">Game maken</a>
                 {% if is_granted("ROLE_ADMIN") %}
                     <a class="me-3 py-2 text-dark text-decoration-none" href="{{ path('admin') }}">Admin</a>
+                    <a class="me-3 py-2 text-dark text-decoration-none" href="{{ path('order_index') }}">Orders</a>
                 {% endif %}
                 {% if app.user %}
                     <a class="py-2 text-dark text-decoration-none"
