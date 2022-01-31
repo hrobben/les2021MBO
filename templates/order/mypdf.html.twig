@@ -37,8 +37,8 @@
             <td>{{ product.id }}</td>
             <td>{{ product.amount }} x </td>
             <td>{{ product.product.naam }}</td>
-            <td>{{ product.product.prijs |format_currency('EUR') }}</td>
-            <td>{{ (product.product.prijs * product.amount) | format_currency('EUR') }}</td>
+            <td>{{ product.product.prijs |format_currency('EUR', locale='nl') }}</td>
+            <td>{{ (product.product.prijs * product.amount) | format_currency('EUR', locale='nl') }}</td>
             {% set totaal = totaal + (product.product.prijs * product.amount) %}
         </tr>
     {% else %}
